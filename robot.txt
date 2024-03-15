@@ -1,0 +1,7 @@
+# robots.txt
+User-agent: *
+Disallow: 
+Disallow: /.github/workflows
+Disallow: /assets/
+Disallow: /font/
+Disallow: /images/
