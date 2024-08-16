@@ -1,0 +1,17 @@
+[
+  {
+    "icon": "Home",
+    "name": "My",
+    "link": "/"
+  },
+  {
+    "icon": "blog",
+    "name": "BLOG",
+    "link": "https://blog.ericzhao3366.tech/"
+  },
+  {
+    "icon": "Cloud",
+    "name": "RANIMG",
+    "link": "https://ranimg.ericzhao3366.tech/"
+  }
+]
