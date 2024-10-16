@@ -1,39 +1,172 @@
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
-    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="%VITE_SITE_LOGO%" />
-    <link rel="apple-touch-icon" href="%VITE_SITE_APPLE_LOGO%" />
-    <link rel="bookmark" href="%VITE_SITE_APPLE_LOGO%" />
-    <link rel="apple-touch-icon-precomposed" sizes="200x200" href="%VITE_SITE_APPLE_LOGO%" />
-    <meta name="description" content="%VITE_SITE_DES%" />
-    <meta name="keywords" content="%VITE_SITE_KEYWORDS%" />
-    <meta name="author" content="%VITE_SITE_ANTHOR%" />
-    <meta name="theme-color" content="#424242" />
-    <title>%VITE_SITE_NAME%</title>
-    <!-- HarmonyOS Sans -->
-    <!-- 本站 CDN 已开启防盗链，非本站域名不可访问，请更改链接为下方内容，否则自定义字体将失效 -->
-    <link rel="stylesheet" href="https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" />
-    <!-- <link rel="stylesheet" href="https://cdn.imsyy.top/gh/imsyy/file/font/HarmonyOS_Sans/regular.min.css" /> -->
-    <!-- IE Out -->
-    <script>
-      if (/*@cc_on!@*/ false || (!!window.MSInputMethodContext && !!document.documentMode))
-        window.location.href =
-          'https://support.dmeng.net/upgrade-your-browser.html?referrer=' +
-          encodeURIComponent(window.location.href);
-    </script>
-  </head>
+<!DOCTYPE html>
+<html lang="en">
 
-  <body>
-    <!-- 主体内容 -->
-    <div id="app"></div>
-    <!-- noscript -->
-    <noscript>
-      <div style="text-align: center">请开启 JavaScript</div>
-    </noscript>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Eric Zhao|小赵</title>
+    <meta name="description" content="小赵的个人网站">
+    <meta name="keywords" content="小赵 EricZhao 个人网站 博客">
+    <link rel="apple-touch-icon-precomposed" href="./source/img/avatar.jpg">
+
+    <link rel="stylesheet" type="text/css" href="./source/h.css">
+    <link rel="stylesheet" type="text/css" href="./source/font/nekotora.css">
+</head>
+
+<body>
+    <div class="background">
+        <canvas id="startrack"></canvas>
+        <div class="cover"></div>
+    </div>
+    <div class="main">
+        <div class="ch intro">
+            <div class="container">
+                <div class="hello">
+                    <img src="./source/img/profile.webp" class="avatar" />
+                    <h1 id="slogan">...</h1>
+                </div>
+                <div class="readme">
+                    <p>
+                        <span class="b">你好，我是小赵<sup>@EricZhao</sup>，是学生。</span><br> 是一个立足中国，服务全球互联网的垃圾文字贩子。
+                        <br> 正在咕咕咕当中。
+                    </p>
+                    <p>
+                        如果对我感兴趣，可以<a href="javascript:rollOnce()">点击这里</a>Roll一个关于我的标签，<br> 在下面的社交媒体关注我，也欢迎直接发邮件找我聊聊。
+                    </p>
+                    <div class="roll-tag"></div>
+                    <p>希望能与你在比特之海的繁星之下相见！</p>
+                </div>
+
+                <div class="find-me">
+                    <a class="item" href="https://qm.qq.com/cgi-bin/qm/qr?k=gbu2j0DviiqK_R9TVeuVXRFn7Ls1wZv0&jump_from=webapi&authKey=Y6LLcbtj2zxGw/3LLn/0AugdQrvMZzTwgSE2pibg92YyIqaiQ6K1yC5qDfCTv8DF" target="_blank">
+                        <i class="neko-icon icon-qq"></i>
+                        <span>QQ</span>
+                    </a>
+                    <!--<a class="item" href="https://t.me/" target="_blank">
+                        <i class="neko-icon icon-telegram"></i>
+                        <span>Telegram</span>
+                    </a>-->
+                    <!--没想好要不要tg-->
+                    <a class="item" href="mailto:ericzhao3366@dingtalk.com" target="_blank">
+                        <i class="neko-icon icon-email"></i>
+                        <span>eMail</span>
+                    </a>
+                    <a class="item" href="https://twitter.com/EricZhao3366" target="_blank">
+                        <i class="neko-icon icon-twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                    <a class="item" href="https://bgm.tv/user/ericzhao" target="_blank">
+                        <i class="neko-icon icon-bookmark"></i>
+                        <span>Bangumi</span>
+                    </a>
+                    <a class="item" href="https://music.163.com/#/artist?id=55844491" target="_blank">
+                        <i class="neko-icon icon-music"></i>
+                        <span>网易云音乐</span>
+                    </a>
+                    <a class="item" href="https://github.com/ERIC-ZHAO-3366" target="_blank">
+                        <i class="neko-icon icon-github"></i>
+                        <span>Github</span>
+                    </a>
+                    <a class="item" href="https://steamcommunity.com/id/eric_zhao/ target="_blank">
+                        <i class="neko-icon icon-steam"></i>
+                        <span>Steam</span>
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ch clear">
+            <div class="container">
+                <div class="enter-list">
+                    <a class="item" href="https://blog.ericzhao3366.tech/">
+                        <div class="text">部落格</div>
+                        <div class="bg">
+                            <div class="square">
+                                <svg width="100" height="100" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect width="100" height="100" rx="10" fill="url(#paint0_linear)"/>
+									<defs>
+									<linearGradient id="paint0_linear" x1="50" y1="0" x2="50" y2="100" gradientUnits="userSpaceOnUse">
+									<stop stop-color="white"/>
+									<stop offset="1" stop-color="white" stop-opacity="0"/>
+									</linearGradient>
+									</defs>
+									</svg>
+                            </div>
+
+                        </div>
+                    </a>
+                    <a class="item" href="/">
+                        <div class="text">施工中🚧</div>
+                        <div class="bg">
+                            <div class="triangle">
+                                <svg width="116" height="103" preserveAspectRatio="xMidYMid meet" viewBox="0 0 116 103" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M49.3397 5.00001C53.1887 -1.66666 62.8113 -1.66667 66.6603 5L114.292 87.5C118.141 94.1667 113.329 102.5 105.631 102.5H10.3686C2.67061 102.5 -2.14065 94.1667 1.70835 87.5L49.3397 5.00001Z" fill="url(#paint0_linear)"/>
+									<defs>
+									<linearGradient id="paint0_linear" x1="58" y1="0.5" x2="58" y2="104" gradientUnits="userSpaceOnUse">
+									<stop stop-color="white"/>
+									<stop offset="1" stop-color="white" stop-opacity="0"/>
+									<stop offset="1" stop-color="white" stop-opacity="0"/>
+									</linearGradient>
+									</defs>
+									</svg>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="item" href="javascript:nav('friends')">
+                        <div class="text">朋友们</div>
+                        <div class="bg">
+                            <div class="rounded">
+                                <svg width="100" height="100" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="50" cy="50" r="50" fill="url(#paint0_linear)"/>
+									<defs>
+									<linearGradient id="paint0_linear" x1="50" y1="0" x2="50" y2="100" gradientUnits="userSpaceOnUse">
+									<stop stop-color="white"/>
+									<stop offset="1" stop-color="white" stop-opacity="0"/>
+									</linearGradient>
+									</defs>
+									</svg>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gate ch gate-friends">
+        <div class="container links">
+            <div class="ch-content">
+                <div class="clear">
+
+                    <a href="https://www.licaoz.com/" target="_blank">
+                        <div class="item">
+                            <div class="avatar">
+                                <img src="./source/p/micooz.jpg">
+                            </div>
+                            <div class="inner">
+                                <h5>锂草纸</h5>
+                                <p>可爱的男孩子XD</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="clear" style="margin-top: 30px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer ch">
+        <div class="container">
+            <p><a href="/">我们从未拥有群星，我们只是星图的谱写者</a></p>
+        </div>
+    </div>
+    </div>
+    <script src="./source/zepto.min.js"></script>
+    <script src="./source/page.js"></script>
+</body>
+
 </html>
