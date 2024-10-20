@@ -167,8 +167,7 @@ var tags = [
     // 生活
     '熬夜大赛季军', '躺平爱好者', '一般通过路人', '怪话Po主',
     // 动画 & 游戏
-    'X-Plane', 'Microsoft Flight Simulator 2020', 'Cites skylines',
-    '（前）Ingress Enlightened', '一般东方Project关注者',
+    'X-Plane', 'Microsoft Flight Simulator 2020', 'Cites skylines'
     // 职业
     '业余偷懒设计师', '偶尔摄影', '公众号编辑', 
     // 文化
