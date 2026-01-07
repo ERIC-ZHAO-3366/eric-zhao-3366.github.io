@@ -1,0 +1,291 @@
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;overflow:hidden;color:#d8e9ff;display:flex;align-items:center;justify-content:center}
+#bg-canvas{position:fixed;inset:0;z-index:-2}
+#page-bg{position:fixed;inset:0;z-index:-4;background-position:center;background-size:cover;background-repeat:no-repeat;transition:opacity 0.5s ease}
+:root{--bg1:#05070a;--accent:#7ef0ff;--accent2:#9b7eff;--glass:rgba(255,255,255,0.06);--glass-2:rgba(255,255,255,0.03)}
+body::before{content:"";position:fixed;inset:0;background:linear-gradient(120deg,rgba(3,16,33,0.85) 0%,rgba(8,20,38,0.8) 40%,rgba(11,5,36,0.85) 100%);z-index:-3}
+.topbar{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;width:fit-content;min-height:64px;display:flex;align-items:center;justify-content:center;padding:8px 20px;border-radius:24px;background-color:rgba(15,20,30,0.6);backdrop-filter:blur(16px) saturate(120%);box-shadow:0 12px 40px rgba(0,0,0,0.6);border:1px solid rgba(126,240,255,0.12);z-index:99999;overflow:hidden;transition:width 0.3s ease}
+.topbar::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0));z-index:-1;pointer-events:none}
+.copy-btn{position:fixed;left:12px;top:12px;z-index:999999;background:linear-gradient(90deg,#ffffff11,#ffffff06);border:1px solid rgba(255,255,255,0.04);color:var(--accent);width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px)}
+.copy-btn.copied{background:linear-gradient(90deg,#7ef0ff,#9b7eff);color:#021122}
+.topbar .left{display:flex;align-items:center;gap:12px;justify-content:center;position:relative;z-index:2}
+.logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021122;box-shadow:0 6px 20px rgba(123,111,255,0.08)}
+.dock{display:flex;gap:8px}
+.dock-item{width:46px;height:46px;border-radius:10px;border:none;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:18px;cursor:pointer;transition:transform .18s,box-shadow .18s,opacity .18s;opacity:0.72}
+.dock-item.active{transform:translateY(-6px);box-shadow:0 16px 36px rgba(126,240,255,0.12),0 4px 10px rgba(0,0,0,0.6);opacity:1;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021122}
+.dock-item:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(126,240,255,0.08)}
+.controls{display:flex;gap:8px;align-items:center}
+.c-btn{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:8px;color:#bfefff;cursor:pointer}
+.avatar{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#ffffff11,#ffffff06);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700}
+
+.wrap{max-width:1100px;width:min(1100px,92%);margin:0;padding:20px;display:flex;flex-direction:column;align-items:center;max-height:72vh}
+.panel{margin-bottom:30px}
+.hero{height:360px;display:flex;align-items:center}
+.hero .glass{width:100%;padding:36px;border-radius:16px;background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02),0 10px 40px rgba(2,6,23,0.6);border:1px solid rgba(126,240,255,0.03)}
+
+/* card panel: only the selected card is visible */
+.card-panel{
+  opacity:0;
+  pointer-events:none;
+  max-height:0;
+  overflow:auto;
+  transform:translateY(20px) scale(0.96);
+  filter:blur(8px);
+  padding:0;
+  transition:
+    opacity .35s cubic-bezier(0.32, 0.725, 0.32, 1),
+    transform .35s cubic-bezier(0.32, 0.725, 0.32, 1),
+    max-height .35s cubic-bezier(0.32, 0.725, 0.32, 1),
+    padding .35s cubic-bezier(0.32, 0.725, 0.32, 1),
+    filter .35s cubic-bezier(0.32, 0.725, 0.32, 1);
+  width:100%
+}
+.card-panel.visible{
+  opacity:1;
+  pointer-events:auto;
+  max-height:68vh;
+  padding:36px;
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));
+  backdrop-filter:blur(12px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.02),0 10px 40px rgba(2,6,23,0.6);
+  border:1px solid rgba(126,240,255,0.03);
+  transform:translateY(0) scale(1);
+  filter:blur(0);
+  width:min(920px,calc(100% - 40px));
+  margin:0 auto;
+  /* keep overflow consistent to avoid scrollbar flash during transition */
+  overflow:auto;
+  transition-duration: .5s; /* Slower entrance for elegance */
+  transition-timing-function: cubic-bezier(0.18, 0.89, 0.32, 1.1); /* Slight bounce/elastic feel */
+}
+
+/* make scrollbars unobtrusive inside panels */
+.card-panel::-webkit-scrollbar{width:8px;height:8px}
+.card-panel::-webkit-scrollbar-thumb{background:rgba(158,231,255,0.06);border-radius:6px}
+.card-panel{scrollbar-width:thin;scrollbar-color:rgba(158,231,255,0.06) transparent}
+
+.card-panel .glass{background:transparent;padding:0}
+.hero h1{font-size:34px;margin:0 0 8px;color:#ecf8ff}
+.tagline{color:#9fdcff;margin:0 0 12px}
+.intro{color:#bcdff9;max-width:720px}
+.intro{position:relative;max-width:720px}
+.intro-inner{white-space:nowrap;display:block;overflow:hidden;max-width:100%;color:#bcdff9}
+.intro-controls{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;gap:6px}
+.intro-controls button{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.03);color:#dff7ff;padding:6px;border-radius:8px;cursor:pointer}
+.intro-controls{display:none}
+.intro.scrollable .intro-controls{display:flex}
+.intro.scrollable .intro-inner{overflow:auto}
+.intro-inner::-webkit-scrollbar{height:8px}
+.intro-inner::-webkit-scrollbar-thumb{background:rgba(158,231,255,0.16);border-radius:6px}
+
+.section-link{position:absolute;right:10px;top:10px;color:#9fe9ff;opacity:0.9;text-decoration:none;font-size:14px}
+
+.cta{margin-top:18px;display:flex;gap:12px}
+.btn{padding:10px 16px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021122;text-decoration:none;font-weight:600}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:#cfeeff}
+
+.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:14px}
+.card{padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+.card h3{margin:0 0 6px;color:#eaf7ff}
+.card p{margin:0;color:#bcdff9}
+
+.friends .friend-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:20px}
+
+/* 友链卡片 - 采用项目卡片相同设计 */
+.friend-card{
+  position:relative;
+  display:flex;
+  gap:16px; 
+  align-items:flex-start;
+  padding:20px;
+  min-height: 120px;
+  border-radius:12px;
+  background:linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+  border:1px solid rgba(255,255,255,0.03);
+  text-decoration:none;
+  color:inherit;
+  transition:all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow:hidden;
+  backdrop-filter:blur(4px);
+}
+
+.friend-card::before{
+  content:"";position:absolute;
+  top:0;bottom:0;left:0;width:3px;
+  background:var(--accent);
+  opacity:0;transition:opacity 0.3s;
+}
+
+.friend-card:hover{
+  transform:translateY(-6px);
+  background:linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01));
+  border-color:rgba(126,240,255,0.15);
+  box-shadow:0 16px 36px rgba(0,0,0,0.25);
+}
+.friend-card:hover::before{opacity:1}
+
+.friend-card .avatar{
+  width:60px;height:60px;
+  border-radius:12px;
+  flex:0 0 60px;
+  background:linear-gradient(135deg,#ffffff11,#ffffff06);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;color:var(--accent);
+  border:1px solid rgba(255,255,255,0.05);
+  overflow:hidden;
+}
+
+.friend-card .meta{flex:1;min-width:0;display:flex;flex-direction:column}
+.friend-card .meta h3{
+  margin:0 0 6px;
+  font-size:18px;
+  font-weight:700;
+  color:#f0f8ff;
+  letter-spacing:-0.5px;
+}
+.friend-card:hover .meta h3{color:var(--accent)}
+
+.friend-card .meta p{
+  margin:0;color:#aabccd;
+  font-size:13px;
+  line-height:1.5;
+  opacity:0.9;
+}
+.friend-card .meta a{
+  font-size:12px;
+  color:rgba(255,255,255,0.4);
+  text-decoration:none;
+  margin-top:auto;
+  display:block;
+  text-align:right;
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.5px;
+  padding-top:8px;
+}
+.friend-card:hover .meta a{color:var(--accent)}
+
+/* 项目卡片样式 - 纯文字极简版 */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:20px}
+
+.project-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  /* 让语言标签沉底 */
+  justify-content:space-between;
+  padding:24px;
+  min-height: 160px;
+  border-radius:12px;
+  background:linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+  border:1px solid rgba(255,255,255,0.03);
+  text-decoration:none;
+  color:inherit;
+  transition:all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow:hidden;
+  backdrop-filter:blur(4px);
+}
+
+/* 悬停效果：左侧高亮条 + 上浮 + 发光 */
+.project-card::before{
+  content:"";position:absolute;
+  top:0;bottom:0;left:0;width:3px;
+  background:var(--accent);
+  opacity:0;transition:opacity 0.3s;
+}
+
+.project-card:hover{
+  transform:translateY(-6px);
+  background:linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01));
+  border-color:rgba(126,240,255,0.15);
+  box-shadow:0 16px 36px rgba(0,0,0,0.25);
+}
+.project-card:hover::before{opacity:1}
+
+/* 标题样式 */
+.project-meta h3{
+  margin:0 0 10px;
+  font-size:20px;
+  font-weight:700;
+  color:#f0f8ff;
+  letter-spacing:-0.5px;
+}
+.project-card:hover .project-meta h3{color:var(--accent)}
+
+/* 描述文字样式 */
+.project-meta p{
+  margin:0;color:#aabccd;
+  font-size:14px;
+  line-height:1.6;
+  opacity:0.9;
+  /* 限制多行文本 */
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* 底部语言标签 */
+.project-lang{
+  margin-top:20px;
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,0.04);
+  font-size:12px;
+  color:rgba(255,255,255,0.4);
+  font-family: "JetBrains Mono", Consolas, monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* 增加一个小箭头 decoration */
+.project-lang::after{
+  content:"↗";
+  font-size:14px;
+  opacity:0;
+  transform:translate(-4px, 4px);
+  transition:all 0.3s;
+  color:var(--accent);
+}
+.project-card:hover .project-lang{color:var(--accent)}
+.project-card:hover .project-lang::after{opacity:1; transform:translate(0,0)}
+
+/* 清除旧的 clamping */
+
+/* friend card tweaks */
+.friend-card{align-items:flex-start}
+.friend-card .avatar{flex:0 0 68px;width:68px;height:68px;border-radius:12px}
+.friend-card .meta p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* typing caret - 优化版 */
+.intro-inner{position:relative;display:inline-block;vertical-align:bottom}
+.intro-inner.typing::after{
+  content:"";display:inline-block;
+  width:3px;height:1.2em;
+  background:var(--accent);
+  margin-left:5px;
+  vertical-align:sub;
+  animation:blink 1s step-end infinite;
+  border-radius:2px;
+  box-shadow:0 0 8px var(--accent);
+}
+@keyframes blink{0%,100%{opacity:1} 50%{opacity:0}}
+
+.footer{padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));text-align:center;color:#9fcfe8}
+
+/* small screens */
+@media (max-width:700px){
+  .topbar{bottom:16px;border-radius:20px;padding:6px 16px}
+  .logo{width:40px;height:40px}
+  .wrap{margin:40px auto 100px}
+  .hero{height:auto}
+  .dock-item{width:40px;height:40px}
+}
+
+/* subtle neon lines */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:
+  radial-gradient(800px 200px at 10% 10%,rgba(126,240,255,0.04),transparent 12%),
+  radial-gradient(600px 160px at 90% 80%,rgba(155,126,255,0.03),transparent 12%);
+  z-index:-1}
+
+/* focus styles */
+.dock-item:focus{outline:2px solid rgba(126,240,255,0.12);outline-offset:3px}

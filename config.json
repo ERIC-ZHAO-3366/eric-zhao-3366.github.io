@@ -1,0 +1,73 @@
+{
+  "background": {
+    "enableRandom": true,
+    "apiUrl": "https://app.zichen.zone/api/acg/api.php",
+    "dblClickRefresh": true
+  },
+  "social": [
+    { "icon": "fa-brands fa-github", "url": "https://github.com/ERIC-ZHAO-3366", "name": "GitHub" },
+    { "icon": "fa-brands fa-twitter", "url": "https://twitter.com/EricZhao3366", "name": "Twitter" },
+    { "icon": "fa-solid fa-envelope", "url": "mailto:ericzhao3366@dingtalk.com", "name": "Email" },
+    { "icon": "fa-brands fa-qq", "url": "https://qm.qq.com/cgi-bin/qm/qr?k=ePQ0UHQY5sROY4y7RORIhZYr5ntijjaA&jump_from=webapi&authKey=Zqc6dsEc045ak4X2jbhvr0AYAs9Gad+EpJiELwK+G/cWV0r6FegPh6UUgU6Qh9YZ", "name": "QQ" },
+    { "icon": "fa-solid fa-music", "url": "https://music.163.com/#/artist?id=55844491", "name": "Netease Cloud Music" },
+    { "icon": "fa-brands fa-steam", "url": "https://steamcommunity.com/id/eric_zhao/%20target=", "name": "Steam" }
+  ],
+  "projects": [
+    {
+      "name": "Hozokura",
+      "desc": "A special Blog system.",
+      "url": "https://github.com/Hozokura/Hozokura",
+      "language": "JavaScript"
+    },
+    {
+      "name": "Hozokura-editor",
+      "desc": "A markdown editor for Hozokura Blog system.",
+      "url": "https://github.com/Hozokura/Hozokura-editor",
+      "language": "HTML"
+    },
+    {
+      "name": "Personal Project",
+      "desc": "Some interesting personal project like make Making a txt file into notes on the way and so on",
+      "url": "https://github.com/ERIC-ZHAO-3366/personal-project",
+      "language": "HTML"
+    }
+  ],
+  "friends": [
+    {
+      "name": "友链链接",
+      "desc": "友链招募中",
+      "url": "https://www.ericzhao3366.work",
+      "avatar": ""
+    },
+    {
+      "name": "友链链接",
+      "desc": "友链招募中",
+      "url": "https://www.ericzhao3366.work",
+      "avatar": ""
+    },
+    {
+      "name": "友链链接",
+      "desc": "友链招募中",
+      "url": "https://www.ericzhao3366.work",
+      "avatar": ""
+    },
+    {
+      "name": "友链链接",
+      "desc": "友链招募中",
+      "url": "https://www.ericzhao3366.work",
+      "avatar": ""
+    },
+    {
+      "name": "友链链接",
+      "desc": "友链招募中",
+      "url": "https://www.ericzhao3366.work",
+      "avatar": ""
+    },
+    {
+      "name": "友链链接",
+      "desc": "友链招募中",
+      "url": "https://www.ericzhao3366.work",
+      "avatar": ""
+    }
+  ]
+}
