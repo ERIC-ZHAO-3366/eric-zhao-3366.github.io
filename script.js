@@ -14,6 +14,10 @@ function showPanel(id){
 			p.classList.add('visible');
 			// ensure inner glass has no extra padding when card-panel provides it
 			const g = p.querySelector('.glass'); if(g) g.style.transform = '';
+
+			// 切换面板时，默认回到顶部，方便查看
+			p.scrollTop = 0; // 针对桌面端（容器内滚动）
+			window.scrollTo(0, 0); // 针对手机端（页面级滚动）
 		} else {
 			p.classList.remove('visible');
 		}

@@ -272,13 +272,72 @@ body::before{content:"";position:fixed;inset:0;background:linear-gradient(120deg
 
 .footer{padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));text-align:center;color:#9fcfe8}
 
-/* small screens */
-@media (max-width:700px){
-  .topbar{bottom:16px;border-radius:20px;padding:6px 16px}
+/* small screens adaptation */
+@media (max-width:768px){
+  /* Enable native scrolling on mobile for better UX */
+  body {
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    min-height: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Adjust Container */
+  .wrap {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 16px 100px 16px; /* Added bottom padding for navbar */
+    max-height: none;
+    display: block;
+  }
+
+  /* Expand panels to fit content naturally */
+  .card-panel.visible {
+    max-height: none;
+    overflow: visible;
+    width: 100%;
+    margin: 0 0 24px 0;
+    padding: 24px 20px;
+    min-height: 40vh;
+  }
+
+  /* Topbar adjustment (Bottom Navigation) */
+  .topbar {
+    bottom: 20px;
+    border-radius: 20px;
+    padding: 8px 16px;
+    width: auto;
+    max-width: 90%;
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+  
   .logo{width:40px;height:40px}
-  .wrap{margin:40px auto 100px}
-  .hero{height:auto}
-  .dock-item{width:40px;height:40px}
+  .dock-item{width:42px;height:42px; font-size: 18px;}
+
+  .hero{height:auto; min-height: auto;}
+  .hero h1 { font-size: 28px; }
+  
+  /* Force single column for grids to avoid squeezing */
+  .about-grid, 
+  .project-grid, 
+  .friends .friend-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  /* Adjust Text Sizing for readability */
+  p, li, .intro-inner {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Ensure cards don't have fixed huge heights */
+  .project-card {
+    min-height: auto;
+  }
 }
 
 /* subtle neon lines */
